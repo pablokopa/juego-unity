@@ -1,96 +1,99 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class PlayerController : MonoBehaviour
-{
- // Rigidbody of the player.
- private Rigidbody rb; 
+public class PlayerController : MonoBehaviour {
+    // Rigidbody del jugador.
+    private Rigidbody rb; 
 
- // Variable to keep track of collected "PickUp" objects.
- private int count;
+    // Variable para llevar el registro de los objetos "PickUp" recolectados.
+    private int count;
 
- // Movement along X and Y axes.
- private float movementX;
- private float movementY;
+    // Movimiento a lo largo de los ejes X y Y.
+    private float movementX;
+    private float movementY;
 
- // Speed at which the player moves.
- public float speed = 0;
+    // Velocidad a la que se mueve el jugador.
+    public float speed = 0;
 
- // UI text component to display count of "PickUp" objects collected.
- public TextMeshProUGUI countText;
+    // Componente de texto UI para mostrar la cantidad de objetos "PickUp" recolectados.
+    public TextMeshProUGUI countText;
 
- // UI object to display winning text.
- public GameObject winTextObject;
+    // Objeto UI para mostrar el texto de victoria.
+    public GameObject winTextObject;
 
- // Start is called before the first frame update.
- void Start()
-    {
- // Get and store the Rigidbody component attached to the player.
+    // Start se llama antes de la primera actualización del frame.
+    void Start() {
+        // Obtener y almacenar el componente Rigidbody adjunto al jugador.
         rb = GetComponent<Rigidbody>();
 
- // Initialize count to zero.
+        // Inicializar el contador a cero.
         count = 0;
 
- // Update the count display.
+        // Actualizar la visualización del contador.
         SetCountText();
 
- // Initially set the win text to be inactive.
+        // Inicialmente establecer el texto de victoria como inactivo.
         winTextObject.SetActive(false);
     }
  
- // This function is called when a move input is detected.
- void OnMove(InputValue movementValue)
-    {
- // Convert the input value into a Vector2 for movement.
+    // Esta función se llama cuando se detecta un input de movimiento.
+    void OnMove(InputValue movementValue) {
+        // Convertir el valor de entrada en un Vector2 para el movimiento.
         Vector2 movementVector = movementValue.Get<Vector2>();
 
- // Store the X and Y components of the movement.
+        // Almacenar los componentes X e Y del movimiento.
         movementX = movementVector.x; 
         movementY = movementVector.y; 
     }
 
- // FixedUpdate is called once per fixed frame-rate frame.
- private void FixedUpdate() 
-    {
- // Create a 3D movement vector using the X and Y inputs.
+    // FixedUpdate se llama una vez por cada frame de tasa de actualización fija.
+    private void FixedUpdate() {
+        // Crear un vector de movimiento 3D utilizando las entradas X e Y.
         Vector3 movement = new Vector3 (movementX, 0.0f, movementY);
 
- // Apply force to the Rigidbody to move the player.
+        // Aplicar fuerza al Rigidbody para mover al jugador.
         rb.AddForce(movement * speed); 
     }
 
- 
- void OnTriggerEnter(Collider other) 
-    {
- // Check if the object the player collided with has the "PickUp" tag.
- if (other.gameObject.CompareTag("PickUp")) 
-        {
- // Deactivate the collided object (making it disappear).
+    void OnTriggerEnter(Collider other) {
+        // Verificar si el objeto con el que colisionó el jugador tiene la etiqueta "PickUp".
+        if (other.gameObject.CompareTag("PickUp")) {
+            // Desactivar el objeto colisionado (haciéndolo desaparecer).
             other.gameObject.SetActive(false);
 
- // Increment the count of "PickUp" objects collected.
+            // Incrementar el contador de objetos "PickUp" recolectados.
             count = count + 1;
 
- // Update the count display.
+            // Actualizar la visualización del contador.
             SetCountText();
         }
     }
 
- // Function to update the displayed count of "PickUp" objects collected.
- void SetCountText() 
-    {
- // Update the count text with the current count.
+    // Función para actualizar el contador mostrado de objetos "PickUp" recolectados.
+    void SetCountText() {
+        // Actualizar el texto del contador con el valor actual.
         countText.text = "Puntos: " + count.ToString();
 
- // Check if the count has reached or exceeded the win condition.
- if (count >= 7)
-        {
- // Display the win text.
+        // Verificar si el contador ha alcanzado o superado la condición de victoria.
+        if (count >= 7) {
+            // Mostrar el texto de victoria.
             winTextObject.SetActive(true);
+
+            // Destruir el GameObject enemigo.
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        // Verificar si el objeto con el que colisionó el jugador tiene la etiqueta "Enemy".
+        if (collision.gameObject.CompareTag("Enemy")) {
+            // Destruir el objeto actual.
+            Destroy(gameObject); 
+ 
+            // Actualizar el texto de winText para mostrar "¡Has perdido!".
+            winTextObject.gameObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "¡Has perdido!";
         }
     }
 }

@@ -24,7 +24,7 @@ Este proyecto es una versión personalizada del tutorial de "Roll a Ball" de Uni
 
   ![salto_recto.gif](gifs/salto_recto.gif)
 
-- He añadido también efectos visuales por todo el mapa (**lluvia, rayos y fuego**) para hacer que el escenario sea más llamativo y divertido.
+- He añadido también efectos visuales por todo el mapa (**lluvia, rayos y fuego**) para hacer que el escenario sea más llamativo y divertido. También he actualizado el cielo y las texturas de las monedas.
 
   ![efectos.gif](gifs/efectos.gif)
 

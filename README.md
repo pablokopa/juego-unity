@@ -20,6 +20,14 @@ Este proyecto es una versión personalizada del tutorial de "Roll a Ball" de Uni
 
   ![salto_rampa.gif](gifs/salto_rampa.gif)
 
+- He modificado el script (*PlayerController.cs*) para que el jugador pueda hacer un **salto hacia arriba**, añadiendo así más variedad en los movimientos del juego.
+
+  ![salto_recto.gif](gifs/salto_recto.gif)
+
+- He añadido también efectos visuales por todo el mapa (**lluvia, rayos y fuego**) para hacer que el escenario sea más llamativo y divertido.
+
+  ![efectos.gif](gifs/efectos.gif)
+
 ## Materiales Utilizados 🎨
 
 - Los **modelos y texturas** del entorno, así como el modelo del **fantasma rosa**, fueron descargados desde la **Asset Store de Unity**.

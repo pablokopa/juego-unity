@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Pelota
   - Ground
+  - Invisible
   layers:
   - Default
   - TransparentFX

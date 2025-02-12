@@ -2,9 +2,10 @@
 
 Este proyecto es una versión personalizada del tutorial de "Roll a Ball" de Unity. He seguido el curso completo de "Roll a Ball" para crear este juego y agregarle mis propios toques y características adicionales.
 
-## Características 📜
+<details>
+<summary> <b> Características 📜 </b> </summary>
 
-- **Superficies y Obstáculos**: El juego cuenta con tres superficies diferentes, cada una con obstáculos que dificultan el movimiento. Todo el entorno está diseñado en tonos de rosa para dar un estilo único al juego.
+- **Superficies y Obstáculos**: El juego cuenta con tres superficies diferentes, cada una con obstáculos que dificultan el movimiento. Todo el entorno está diseñado en tonos de rosa para dar un estilo único al juego. También cuenta con un plano invisible bajo el mapa para detectar cuando el jugador se cae y el juego debe terminar.
 
   ![obstaculos.gif](gifs/obstaculos.gif)
 
@@ -28,19 +29,30 @@ Este proyecto es una versión personalizada del tutorial de "Roll a Ball" de Uni
 
   ![efectos.gif](gifs/efectos.gif)
 
-## Materiales Utilizados 🎨
+</details>
+
+
+<details>
+<summary> <b> Materiales Utilizados 🎨 </b> </summary>
 
 - Los **modelos y texturas** del entorno, así como el modelo del **fantasma rosa**, fueron descargados desde la **Asset Store de Unity**.
 
   ![imagen](https://github.com/user-attachments/assets/698fa18b-a6d9-47e6-8d1e-6f8bd6f1a925)
 
-- Se utilizaron **texturas personalizadas** para las superficies y los obstáculos, las cuales se diseñaron con un estilo de color rosa.
+- Se utilizaron **texturas personalizadas** para las superficies y los obstáculos, las cuales se diseñaron con un estilo de color rosa. *Se ven las texturas bug por un error en Unity*
 
   ![imagen](https://github.com/user-attachments/assets/3d5593bd-9022-4bbc-9496-be5c457ee36b)
-  
-  *Se ven las texturas bug por un error en Unity*
 
-## Scripts ⚙️
+- A medida que he ido avanzando con el juego, he ido utilizando más assets, como por ejemplo para las texturas de las **monedas, el cielo, los efectos del mapa**, etc.
+
+  ![assets.png](gifs/assets.png)
+
+</details>
+
+<details>
+<summary> <b> Scripts ⚙️ </b> </summary>
+
+## Cámaras
 ### FirstPersonCamera.cs
 Este código implementa una cámara en primera persona y el movimiento:
 
@@ -52,6 +64,8 @@ Métodos:
 - **LateUpdate()**: Actualiza la rotación de la cámara y la posición relativa al jugador.
 - **FixedUpdate()**: Aplica el movimiento del jugador en base a la entrada del teclado y la rotación de la cámara.
 
+![frist_person.gif](gifs/frist_person.gif)
+
 ### ThirdPersonController.cs
 Este código implementa una cámara en tercera persona que sigue al jugador:
 
@@ -61,3 +75,23 @@ Métodos:
 
 - **Start()**: Calcula el desplazamiento inicial entre la cámara y el jugador al inicio del juego.
 - **LateUpdate()**: Actualiza la posición de la cámara para que siga al jugador, manteniendo el mismo desplazamiento.
+
+![third_person.gif](gifs/third_person.gif)
+
+</details>
+
+<details>
+<summary> <b> Estados 🔧 </b> </summary>
+
+### Invulnerabilidad
+He añadido un estado de **invulnerabilidad** al jugador que se activa cuando el jugador recoge una moneda. Durante este estado, el jugador es inmune y no puede ser tocado por el fantasma. El estado de invulnerabilidad dura 1 segundo por defecto (aunque se puede modificar) y se indica con un efecto visual de destello y cambio de color.
+
+Para hacer este estado he modificado ***PlayerCOntroller.cs*** para añadir el efecto de invulnerabilidad.
+
+También he añadido un Animator Controller:
+![animator.png](gifs/animator.png)
+
+Este se encarga de gestionar cuando el jugador coge una moneda y pasa al estado de invulnerabilidad. Y también controla cuando dicho estado se acaba y debe volver al estado normal.
+
+![invulnerable.gif](gifs/invulnerable.gif)
+</details>

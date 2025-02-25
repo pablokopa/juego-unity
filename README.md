@@ -1,6 +1,8 @@
 # Roll a Ball Game - Unity 🏐
+#### 👤 Autor: Pablo Iglesias Leyenda
 
-Este proyecto es una versión personalizada del tutorial de "Roll a Ball" de Unity. He seguido el curso completo de "Roll a Ball" para crear este juego y agregarle mis propios toques y características adicionales.
+Este proyecto es una versión personalizada del tutorial de **"Roll a Ball"** de Unity.
+He seguido el curso completo de "Roll a Ball" para crear este juego y agregarle mis propios toques y características adicionales.
 
 <details>
 <summary> <b> Características 📜 </b> </summary>
@@ -89,9 +91,75 @@ He añadido un estado de **invulnerabilidad** al jugador que se activa cuando el
 Para hacer este estado he modificado ***PlayerCOntroller.cs*** para añadir el efecto de invulnerabilidad.
 
 También he añadido un Animator Controller que cambia cada vez que paso sobre una moneda:
+
 ![estadosgif.gif](gifs/estadosgif.gif)
 
 Este se encarga de gestionar cuando el jugador coge una moneda y pasa al estado de invulnerabilidad. Y también controla cuando dicho estado se acaba y debe volver al estado normal.
 
 ![invulnerable.gif](gifs/invulnerable.gif)
+</details>
+
+<details>
+<summary> <b> Creación de la APK 📱 </b> </summary>
+
+#### Preparar el Proyecto en Unity para Android
+
+Desde **'Installs'** en Unity Hub selecciono la versión de Unity que
+estoy usando e instalo los módulos de Android Build Support, SDK & NDK Tools, y OpenJDK.
+
+#### Configurar el Proyecto para Android
+Abro Unity y voy al apartado de Build Settings, ahí selecciono Android,
+hago click en Switch Platform y espero a que Unity convierta el proyecto a Android.
+
+![buildsettings.png](gifs/buildsettings.png)
+
+### Ajustar la Configuración del Proyecto
+   
+En el apartado de Player en Project Settings, he entrado en la pestaña de Android y he configurado los siguientes puntos:
+   - Company Name y Product Name (nombre o identificador de la app).
+   - Package Name (com.pabloiglesias.rollaball).
+   - Minimum API Level: Android 6.0 (API 23) o superior.
+   - Target API Level: Automatic (Highest Installed).
+   - Cambio en la rotación de la pantalla obligatoria.
+
+### Modificar el código para que los controles funcionen en el teléfono
+Modifico el código de PlayerController y añado las siguientes líneas:
+
+```c#
+private void FixedUpdate() {
+    Vector3 dir = Vector3.zero;
+    dir.x = -Input.acceleration.y;
+    dir.z = Input.acceleration.x;
+    if (dir.sqrMagnitude > 1)
+        dir.Normalize();
+    
+    dir *= Time.deltaTime;
+    transform.Translate(dir * speed);
+}
+```
+
+Esto hará que el juego funcione correctamente en el teléfono.
+### Generar la APK
+
+Desde la escena principal voy a Build Settingsy compruebo que la escena principal está en la lista de Scenes In Build.
+Una vez comprobado hago click en Build. Selecciono una carpeta donde guardar la APK y espero a que Unity termine de compilar.
+
+![rallaballapk.png](gifs/rallaballapk.png)
+
+### Probar la APK en un Dispositivo Android
+Para instalar la APK en el teléfono y poder probarla he seguido los siguientes pasos:
+
+1. Habilitar la Depuración USB en el Dispositivo.
+2. Activar las Opciones de Desarrollador.
+3. Conectar el móvil al ordenador con un cable USB.
+4. Copiar la APK generada en el dispositivo.
+
+### Crear Release en GitHub
+Una vez acabada la APK y comprobado su correcto funcionamiento, la subo a GitHub y creo un Release siguiendo los siguientes pasos:
+
+1. Click en **'Releases'** y después en **'Draft a new release'**.
+2. Completo los detalles necesarios (versión, nombre, descripción).
+3. Arrastro la APK al área de Attach binaries.
+4. Finalmente publico la release.
+
 </details>

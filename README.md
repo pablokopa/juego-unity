@@ -88,8 +88,8 @@ He añadido un estado de **invulnerabilidad** al jugador que se activa cuando el
 
 Para hacer este estado he modificado ***PlayerCOntroller.cs*** para añadir el efecto de invulnerabilidad.
 
-También he añadido un Animator Controller:
-![animator.png](gifs/animator.png)
+También he añadido un Animator Controller que cambia cada vez que paso sobre una moneda:
+![estadosgif.gif](gifs/estadosgif.gif)
 
 Este se encarga de gestionar cuando el jugador coge una moneda y pasa al estado de invulnerabilidad. Y también controla cuando dicho estado se acaba y debe volver al estado normal.
 
